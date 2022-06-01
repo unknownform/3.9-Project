@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="value firstValue">
+            <label for="firstValue">First Number: </label>
+            <input type="number" name="firstValue" id="firstValue">
+        </div>
+
+        <div class="value operation">
+            <label for="operation">Operation (+, -, ×, ÷, %)</label>
+            <select name="operation" id="operation">
+                <option value="add">Add (+)</option>
+                <option value="subtract">Subtract (-)</option>
+                <option value="multiply">Multiply (×)</option>
+                <option value="divide">Divide (÷)</option>
+                <option value="modulo">Modulo (%)</option>
+            </select>
+        </div>
+
+        <div class="value secondValue">
+            <label for="secondValue">Second Number: </label>
+            <input type="number" name="secondValue" id="secondValue">
+        </div>
+    </div>
+</div>
+
+<button id="submit">Calculate</button>
+<button id="clear">Clear</button>
+<div class="calculations"></div>
+<script>
+    const a = document.getElementById('firstValue');
+    const operator = document.getElementById('operation');
+    const b = document.getElementById('secondValue');
+    let calculations = document.querySelector('.calculations');
+    const calculateButton = document.getElementById('submit');
+    const clearButton = document.getElementById('clear');
+
+    calculateButton.addEventListener('click', checkOperation);
+    let answer;
+
+    function checkValidation(){
+        let first = Number(a.value);
+        let second = Number(b.value);
+        return first && second;
+    }
+    function checkOperation(){
+        if (!checkValidation()){
+            const text = document.createElement('p');
+            text.innerHTML = `Invalid Values`;
+            calculations.insertAdjacentElement('afterbegin', text);
+            return;
+        }
+        let operation = operator.value;
+        switch (operation){
+            case 'add':
+                console.log('ADD');
+                add();
+                break;
+
+            case 'subtract':
+                console.log('SUBTRACT');
+                subtract();
+                break;
+
+            case 'multiply':
+                console.log('MULTIPLY');
+                multiply();
+                break;
+
+            case 'divide':
+                console.log('DIVIDE');
+                divide();
+                break;
+
+            case 'modulo':
+                console.log('MODULO');
+                modulo();
+                break;
+
+            default:
+                console.log('How did this happen?');
+        }
+    }
+    function add(){
+        let first = Number(a.value);
+        let second = Number(b.value);
+
+        answer = first + second;
+        const equation = document.createElement('p');
+        equation.innerHTML = `${first} + ${second} = ${answer}`;
+        calculations.insertAdjacentElement('afterbegin', equation);
+    }
+    function subtract(){
+        let first = Number(a.value);
+        let second = Number(b.value);
+
+        answer = first - second;
+        const equation = document.createElement('p');
+        equation.innerHTML = `${first} - ${second} = ${answer}`;
+        calculations.insertAdjacentElement('afterbegin', equation);
+    }
+    function multiply(){
+        let first = Number(a.value);
+        let second = Number(b.value);
+
+        answer = first * second;
+        const equation = document.createElement('p');
+        equation.innerHTML = `${first} × ${second} = ${answer}`;
+        calculations.insertAdjacentElement('afterbegin', equation);
+    }
+    function divide(){
+        let first = Number(a.value);
+        let second = Number(b.value);
+
+        answer = first / second;
+        const equation = document.createElement('p');
+        equation.innerHTML = `${first} ÷ ${second} = ${answer}`;
+        calculations.insertAdjacentElement('afterbegin', equation);
+    }
+    function modulo(){
+        let first = Number(a.value);
+        let second = Number(b.value);
+
+        answer = first % second;
+        const equation = document.createElement('p');
+        equation.innerHTML = `${first} % ${second} = ${answer}`;
+        calculations.insertAdjacentElement('afterbegin', equation);
+    }
+
+    clearButton.addEventListener('click', function(){
+        a.value = "";
+        operator.value = "add";
+        b.value= "";
+        calculations.innerHTML = "";
+    })
+</script>
+</body>
+</html>
